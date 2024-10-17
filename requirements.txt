@@ -3,3 +3,7 @@ bs4
 numpy
 pandas
 scikit-learn
+nltk
+spacy
+joblib
+matplotlib
