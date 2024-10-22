@@ -12,7 +12,8 @@ This project aims to develop a comprehensive solution for analyzing product revi
 4. [Usage](#usage)
 5. [Model Description](#model-description)
 6. [File Descriptions](#file-descriptions)
-7. [Future Improvements](#future-improvements)
+7. [Model Comparison](#model-comparison)
+8. [Future Improvements](#future-improvements)
 
 ## Libraries Used
 
@@ -39,7 +40,7 @@ The project follows a well-organized structure that separates different componen
 │   ├── feature_data.csv   # Features extracted from the cleaned data
 │
 ├── /models                # Contains trained models for prediction
-│   ├── pro_rev_ana_model.pkl    # The trained Random Forest model
+│   ├── best_pro_rev_ana_model.pkl    # The best-performing model based on accuracy
 │   ├── tfidf_vectorizer.pkl      # The TF-IDF vectorizer used for text processing
 │
 ├── /notebooks             # Jupyter notebooks for data processing and model handling
@@ -106,24 +107,37 @@ To set up the project on your local machine, follow these steps:
 
 ## Model Description
 
-The project employs a **Random Forest Classifier**, a robust machine learning algorithm known for its accuracy and ability to handle high-dimensional data. The model is trained on a dataset of Amazon product reviews. It predicts whether a review is genuine or fake based on various extracted features from the review text, including:
+The project originally employed a **Random Forest Classifier**, a robust machine learning algorithm known for its accuracy and ability to handle high-dimensional data. The model is trained on a dataset of Amazon product reviews. It predicts whether a review is genuine or fake based on various extracted features from the review text, including:
 
 - TF-IDF scores: Represents how important a word is to a document in a collection.
 - Sentiment analysis scores: Captures the sentiment conveyed in the review text.
 - Review metadata: Includes ratings and other contextual information.
 
+## Model Comparison
+
+To improve the model selection process, we implemented multiple machine learning algorithms and compared their performance to select the best one. The models compared include:
+
+- **Random Forest Classifier**
+- **Logistic Regression**
+- **Support Vector Machine (SVM)**
+- **Gradient Boosting Classifier**
+
+Each model was evaluated based on its accuracy and cross-validation scores. The model with the highest accuracy was selected and saved for future use. The comparison process includes training each model on the dataset, calculating the accuracy score, and visualizing the confusion matrix for each model.
+
+The best-performing model based on accuracy was saved as `best_pro_rev_ana_model.pkl`.
+
 ## File Descriptions
 
 - **data_preparation.ipynb**: Cleans and preprocesses raw review data to prepare it for analysis. This includes handling missing values, removing irrelevant information, and normalizing text data.
 - **feature_engineering.ipynb**: Extracts relevant features from the cleaned data using TF-IDF vectorization, transforming text data into numerical format for machine learning.
-- **model_evaluation.ipynb**: Trains the Random Forest model using the prepared features and evaluates its performance using metrics such as accuracy, precision, recall, and F1 score. It also visualizes the results through confusion matrices.
-- **model_deployment.ipynb**: Sets up a Flask API to serve predictions from the trained model. This notebook contains the code to load the model and vectorizer and define API endpoints for prediction requests.
+- **model_evaluation.ipynb**: Trains and compares multiple models using the prepared features, evaluates their performance using metrics such as accuracy, precision, recall, and F1 score, and selects the best model.
+- **model_deployment.ipynb**: Sets up a Flask API to serve predictions from the selected model. This notebook contains the code to load the model and vectorizer and define API endpoints for prediction requests.
 - **scrape_data.ipynb**: Scrapes product information and customer reviews from Amazon product pages using BeautifulSoup. It extracts essential details like product title, feature bullets, and customer reviews for analysis.
 - **extension/**: Contains files for the browser extension that fetches product URLs, allowing users to analyze reviews directly from their browsers.
 
 ## Future Improvements
 
 - **Enhance Web Scraping**: Improve the scraping functionality to include more product details and handle different page structures more robustly.
-- **Model Comparison**: Implement additional machine learning models (e.g., SVM, Gradient Boosting) and compare their performance with the Random Forest model to identify the best approach.
+- **Further Model Comparison**: Continue exploring additional machine learning models and techniques (e.g., neural networks) to further improve prediction accuracy.
 - **User Interface**: Create a user-friendly web interface for direct interaction with the model, allowing users to input reviews and receive predictions without using Postman.
 - **Extension Features**: Add features to the browser extension, such as displaying predictions directly on Amazon product pages or saving predictions for later review.
