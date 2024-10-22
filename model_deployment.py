@@ -2,7 +2,7 @@ import joblib
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-model = joblib.load('pro_rev_ana_model.pkl')
+model = joblib.load('best_pro_rev_ana_model_GradientBoosting.pkl')
 tfidf_vectorizer = joblib.load('tfidf_vectorizer.pkl')
 
 @app.route('/')
