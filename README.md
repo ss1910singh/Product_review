@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project aims to develop a comprehensive solution for analyzing product reviews on Amazon. It consists of a browser extension that fetches product URLs, scrapes relevant data from the Amazon product page, and utilizes a machine learning model to predict whether the reviews are genuine or fake. The workflow includes several key stages: data preparation, feature engineering, model training and evaluation, and deployment via a Flask web application. This solution enables users to make informed decisions about product authenticity by leveraging machine learning techniques.
+This project develops a solution for analyzing Amazon product reviews, including a browser extension that fetches product URLs, scrapes relevant data from the Amazon page, and uses a machine learning model to predict whether reviews are genuine or fake. The project workflow covers stages like data preparation, feature engineering, model training and evaluation, and deployment via a Flask web application. This solution allows users to make informed decisions about product authenticity with machine learning techniques.
 
 ## Table of Contents
 
@@ -17,53 +17,53 @@ This project aims to develop a comprehensive solution for analyzing product revi
 
 ## Libraries Used
 
-This project utilizes several Python libraries to handle data processing, machine learning, web scraping, and API development:
+This project uses Python libraries for data processing, machine learning, web scraping, and API development:
 
-- **Flask**: A lightweight web framework for building web applications and APIs in Python. It is used to create an endpoint for the machine learning model.
-- **Pandas**: A powerful data manipulation and analysis library that provides data structures like DataFrames to handle and analyze structured data efficiently.
-- **NumPy**: A fundamental package for numerical computing in Python, used for handling arrays and mathematical operations.
-- **Scikit-learn**: A comprehensive library for machine learning that provides tools for model training, evaluation, and various machine learning algorithms.
-- **BeautifulSoup**: A library for web scraping that allows for parsing HTML and XML documents. It is used to extract product and review data from Amazon pages.
-- **Requests**: A simple and elegant HTTP library for Python. It is used to make requests to web pages to fetch their content.
-- **Joblib**: A library used for serializing Python objects, particularly for saving and loading trained machine learning models and transformers.
-- **Matplotlib**: A plotting library used for creating static, animated, and interactive visualizations in Python.
+- **Flask**: Creates an endpoint for the machine learning model.
+- **Pandas**: Manages and analyzes structured data efficiently.
+- **NumPy**: Handles arrays and mathematical operations.
+- **Scikit-learn**: Provides tools for model training, evaluation, and various machine learning algorithms.
+- **BeautifulSoup**: Parses HTML and XML documents to extract data from Amazon.
+- **Requests**: Fetches content from web pages.
+- **Joblib**: Saves and loads trained machine learning models and transformers.
+- **Matplotlib**: Creates static and interactive visualizations.
 
 ## Project Structure
 
-The project follows a well-organized structure that separates different components for better manageability:
+This project is organized into separate components for easy manageability:
 
 ```
 /product_review_analysis
 │
 ├── /data                  # Contains raw and processed data files
-│   ├── cleaned_reviews_nltk.csv  # Cleaned review data for analysis
-│   ├── feature_data.csv   # Features extracted from the cleaned data
+│   ├── cleaned_reviews_nltk.csv    # Cleaned review data for analysis
+│   ├── feature_data.csv           # Features extracted from the cleaned data
 │
-├── /models                # Contains trained models for prediction
-│   ├── best_pro_rev_ana_model.pkl    # The best-performing model based on accuracy
-│   ├── tfidf_vectorizer.pkl      # The TF-IDF vectorizer used for text processing
+├── /model                 # Contains Jupyter notebooks and code for model processing
+│   ├── data_preparation.ipynb     # Notebook for data cleaning and preparation
+│   ├── feature_engineering.ipynb  # Notebook for feature extraction
+│   ├── model_evaluation.ipynb     # Notebook for model training and evaluation
+│   ├── model_deployment.ipynb     # Notebook for deploying the model using Flask
+│   ├── scrape_data.ipynb          # Notebook for scraping data from Amazon
 │
-├── /notebooks             # Jupyter notebooks for data processing and model handling
-│   ├── data_preparation.ipynb      # Notebook for data cleaning and preparation
-│   ├── feature_engineering.ipynb    # Notebook for feature extraction
-│   ├── model_evaluation.ipynb       # Notebook for model training and evaluation
-│   ├── model_deployment.ipynb       # Notebook for deploying the model using Flask
-│   ├── scrape_data.ipynb            # Notebook for scraping data from Amazon
+├── /extension_code        # Contains files for the browser extension
+│   ├── manifest.json          # Configuration file for the browser extension
+│   ├── background.js          # Background process handler for the extension
+│   ├── content.js             # Script for scraping Amazon review data
+│   ├── popup.html             # HTML file for the extension popup interface
+│   ├── popup.js               # JavaScript for handling popup actions
 │
-├── /extension             # Contains files for the browser extension
-│   ├── manifest.json      # Configuration file for the browser extension
-│   ├── background.js       # JavaScript file for handling background processes
-│   ├── popup.html         # HTML file for the extension's popup interface
-│
-└── README.md              # Project documentation
+└── README.md                  # Project documentation
 ```
+
+> **Note:** The `model` folder contains the notebooks for processing the model, but the trained model files will be generated automatically when these notebooks are run and are not included in the repository.
 
 ## Installation
 
 To set up the project on your local machine, follow these steps:
 
 1. **Clone the Repository**: 
-   Clone this repository to your local machine using the following command:
+   Clone this repository to your local machine using:
 
    ```bash
    git clone <repository-url>
@@ -71,19 +71,19 @@ To set up the project on your local machine, follow these steps:
    ```
 
 2. **Install Required Libraries**: 
-   Use `pip` to install the required libraries listed in the `requirements.txt` file. You can create a virtual environment to manage dependencies:
+   Use `pip` to install the required libraries listed in the `requirements.txt` file. You may want to create a virtual environment to manage dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Ensure Browser Extension Support**: 
-   For the browser extension, ensure you have access to a supported browser (e.g., Chrome or Firefox) for loading unpacked extensions.
+   For the browser extension, make sure you have a supported browser (like Chrome or Firefox) for loading unpacked extensions.
 
 ## Usage
 
 1. **Run the Flask API**: 
-   Navigate to the `notebooks` directory and run the `model_deployment.ipynb` to start the Flask server. This server will handle incoming requests for predictions.
+   Navigate to the `model` directory and run `model_deployment.ipynb` to start the Flask server. This server will handle incoming requests for predictions.
 
 2. **Access the API**:
    - Open Postman (or your preferred API testing tool).
@@ -107,37 +107,42 @@ To set up the project on your local machine, follow these steps:
 
 ## Model Description
 
-The project originally employed a **Random Forest Classifier**, a robust machine learning algorithm known for its accuracy and ability to handle high-dimensional data. The model is trained on a dataset of Amazon product reviews. It predicts whether a review is genuine or fake based on various extracted features from the review text, including:
+The project initially employed a **Random Forest Classifier** to predict whether a review is genuine or fake based on various extracted features from the review text, such as:
 
-- TF-IDF scores: Represents how important a word is to a document in a collection.
-- Sentiment analysis scores: Captures the sentiment conveyed in the review text.
-- Review metadata: Includes ratings and other contextual information.
+- **TF-IDF scores**: Quantifies word importance within the review text.
+- **Sentiment analysis scores**: Captures the sentiment conveyed in the review.
+- **Review metadata**: Includes ratings and other contextual information.
 
 ## Model Comparison
 
-To improve the model selection process, we implemented multiple machine learning algorithms and compared their performance to select the best one. The models compared include:
+The best model is selected by comparing multiple machine learning algorithms. The evaluated models include:
 
 - **Random Forest Classifier**
 - **Logistic Regression**
 - **Support Vector Machine (SVM)**
 - **Gradient Boosting Classifier**
 
-Each model was evaluated based on its accuracy and cross-validation scores. The model with the highest accuracy was selected and saved for future use. The comparison process includes training each model on the dataset, calculating the accuracy score, and visualizing the confusion matrix for each model.
-
-The best-performing model based on accuracy was saved as `best_pro_rev_ana_model.pkl`.
+Each model was trained and tested on the dataset, and the best-performing model was saved as `best_pro_rev_ana_model.pkl`.
 
 ## File Descriptions
 
-- **data_preparation.ipynb**: Cleans and preprocesses raw review data to prepare it for analysis. This includes handling missing values, removing irrelevant information, and normalizing text data.
-- **feature_engineering.ipynb**: Extracts relevant features from the cleaned data using TF-IDF vectorization, transforming text data into numerical format for machine learning.
-- **model_evaluation.ipynb**: Trains and compares multiple models using the prepared features, evaluates their performance using metrics such as accuracy, precision, recall, and F1 score, and selects the best model.
-- **model_deployment.ipynb**: Sets up a Flask API to serve predictions from the selected model. This notebook contains the code to load the model and vectorizer and define API endpoints for prediction requests.
-- **scrape_data.ipynb**: Scrapes product information and customer reviews from Amazon product pages using BeautifulSoup. It extracts essential details like product title, feature bullets, and customer reviews for analysis.
-- **extension/**: Contains files for the browser extension that fetches product URLs, allowing users to analyze reviews directly from their browsers.
+- **data_preparation.ipynb**: Cleans and preprocesses raw review data.
+- **feature_engineering.ipynb**: Extracts relevant features from the cleaned data.
+- **model_evaluation.ipynb**: Trains and compares models, evaluates them with metrics like accuracy, precision, recall, and F1 score.
+- **model_deployment.ipynb**: Sets up a Flask API to serve predictions from the selected model.
+- **scrape_data.ipynb**: Scrapes product information and customer reviews from Amazon.
+
+### Extension Code Files
+
+- **manifest.json**: Configures the Chrome extension.
+- **background.js**: Handles background events in the extension.
+- **content.js**: Scrapes review data from Amazon pages.
+- **popup.html**: HTML for the extension popup interface.
+- **popup.js**: JavaScript for popup functionality.
 
 ## Future Improvements
 
-- **Enhance Web Scraping**: Improve the scraping functionality to include more product details and handle different page structures more robustly.
-- **Further Model Comparison**: Continue exploring additional machine learning models and techniques (e.g., neural networks) to further improve prediction accuracy.
-- **User Interface**: Create a user-friendly web interface for direct interaction with the model, allowing users to input reviews and receive predictions without using Postman.
-- **Extension Features**: Add features to the browser extension, such as displaying predictions directly on Amazon product pages or saving predictions for later review.
+- **Enhanced Web Scraping**: Improve the scraping to include additional product details.
+- **Expanded Model Comparison**: Explore additional machine learning models and neural networks to improve accuracy.
+- **User Interface**: Develop a user-friendly web UI for the model to allow easy review predictions.
+- **Extension Features**: Add features to the extension, such as displaying predictions directly on Amazon pages.

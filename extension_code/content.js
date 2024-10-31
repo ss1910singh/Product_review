@@ -1,4 +1,4 @@
-// Extract the product name and price from Amazon product pages
+// Extract the product name and price from Amazon product pages 
 let productName = document.getElementById('productTitle')?.innerText.trim() || "Product Name Not Found";
 let productPrice = document.getElementById('priceblock_ourprice')?.innerText ||
                    document.getElementById('priceblock_dealprice')?.innerText ||
