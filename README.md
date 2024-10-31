@@ -67,7 +67,6 @@ To set up the project on your local machine, follow these steps:
 
    ```bash
    git clone https://github.com/ss1910singh/Review_Classifier.git
-   cd product_review_analysis
    ```
 
 2. **Install Required Libraries**: 
